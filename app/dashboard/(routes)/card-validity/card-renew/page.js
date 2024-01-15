@@ -28,7 +28,7 @@ export default function CardRenew () {
         if (ev.target.value > 0) {
             const resCustomerDataWithCard = await fetch(`${BACKEND_URL}/search_by_number_or_card/`, {
                 method: "POST", 
-                mode: "cors",
+                // mode: "cors",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -74,7 +74,7 @@ export default function CardRenew () {
 
         const saveRenewData = await fetch(`${BACKEND_URL}/renew_card/`, {
             method: "POST",
-            mode: "cors",
+            // mode: "cors",
             headers: {
                 "Content-Type": "application/json",
             },

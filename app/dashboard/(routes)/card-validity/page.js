@@ -31,7 +31,7 @@ export default function CardValidityCheck() {
             setLoading(true)
             const res = await fetch(`${BACKEND_URL}/search_by_number_or_card/`, {
                 method: "POST",
-                mode: "cors",
+                // mode: "cors",
                 body: JSON.stringify({searchValue: searchValue})
             })
 
@@ -40,7 +40,7 @@ export default function CardValidityCheck() {
 
                 const cardValidate = await fetch(`${BACKEND_URL}/card-validate-check/`, {
                     method: "POST",
-                    mode: "cors",
+                    // mode: "cors",
                     headers: {
                         "Content-Type": "application/json",
                     },

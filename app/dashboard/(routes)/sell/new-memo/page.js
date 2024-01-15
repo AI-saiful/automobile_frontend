@@ -157,7 +157,7 @@ export default function NewMemo() {
             if (xData.length > 0) {
                 const cardCategoryRes = await fetch(`${BACKEND_URL}/card-category/`, {
                     method: "POST",
-                    mode: "cors",
+                    // mode: "cors",
                     body: JSON.stringify({card_category_id: xData[0].card_category_id})
                 })
     
@@ -166,7 +166,7 @@ export default function NewMemo() {
 
                     const cardTypeRes = await fetch(`${BACKEND_URL}/get_service_type/`, {
                         method: "POST",
-                        mode: "cors",
+                        // mode: "cors",
                         body: JSON.stringify({service_type_id: xData[0].service_type_id})
                     })
 

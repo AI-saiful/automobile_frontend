@@ -124,7 +124,7 @@ export default function Sell() {
         if (ev) {
             const res = await fetch(`${BACKEND_URL}/searchBydate/`, {
                     method: "POST",
-                    mode: "cors",
+                    // mode: "cors",
                     body: JSON.stringify({fromDate: `${ev.getFullYear()}-${ev.getMonth()+1}-${ev.getDate()}`, toDate: ""})
             })
 
@@ -188,7 +188,7 @@ export default function Sell() {
         if (fromDate && ev) {
             const res = await fetch(`${BACKEND_URL}/searchBydate/`, {
                 method: "POST",
-                mode: "cors",
+                // mode: "cors",
                 body: JSON.stringify({toDate: `${ev.getFullYear()}-${ev.getMonth()+1}-${ev.getDate()}`, fromDate: `${fromDate.getFullYear()}-${fromDate.getMonth()+1}-${fromDate.getDate()}`})
             })
 
@@ -258,7 +258,7 @@ export default function Sell() {
         if (ev.target.value > '') {
             const res = await fetch(`${BACKEND_URL}/search_by_number_or_card/`, {
                 method: "POST",
-                mode: "cors",
+                // mode: "cors",
                 body: JSON.stringify({searchValue: ev.target.value})
             })
 
