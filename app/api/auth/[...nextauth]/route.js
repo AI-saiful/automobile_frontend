@@ -15,31 +15,35 @@ export const authOptions = {
       async authorize (credentials, req) {
         if (typeof credentials !== "undefined") {
 
-            const res = await fetch(`${BACKEND_URL}/token/`, {
+            const res = await fetch(`${BACKEND_URL}/api/login/`, {
                 method: "POST",
-                mode: "cors",
+                // mode: "",
                 headers: {
                     "Content-Type": "application/json",
                 },
+
                 body: JSON.stringify({username: credentials?.username, password: credentials?.password})
             })
 
             if (res.ok && res.status === 200) {
                 const data = await res.json();
 
+
+
                 if (res.ok && data?.access) {
                   const userDecode = await jwtDecode(data?.access);
                   const user = {
-                    name: userDecode?.username,
+                    name: data.username,
                     email: userDecode?.user_id,
                   }
+
                   return user;
 
                 }
 
                 
             } else {
-              return null
+              console.log(res);
             }
 
         } else {

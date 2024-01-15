@@ -1,4 +1,4 @@
-const original_domain = "http://mangroveerp.com"
+const original_domain = "http://192.168.0.107:8000"
 
 export const BACKEND_URL = `${original_domain}/automobile`
 
