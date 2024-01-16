@@ -206,7 +206,7 @@ export default function NewMemo() {
             if (xData.length > 0) {
                 const cardCategoryRes = await fetch(`${BACKEND_URL}/card-category/`, {
                     method: "POST",
-                    mode: "cors",
+                    // mode: "cors",
                     body: JSON.stringify({card_category_id: xData[0].card_category_id})
                 })
     
@@ -215,7 +215,7 @@ export default function NewMemo() {
 
                     const cardTypeRes = await fetch(`${BACKEND_URL}/get_service_type/`, {
                         method: "POST",
-                        mode: "cors",
+                        // mode: "cors",
                         body: JSON.stringify({service_type_id: xData[0].service_type_id})
                     })
 
@@ -302,7 +302,7 @@ export default function NewMemo() {
                     // check card validity
                     const cardValidate = await fetch(`${BACKEND_URL}/card-validate-check/`, {
                         method: "POST",
-                        mode: "cors",
+                        // mode: "cors",
                         signal: controller.signal,
                         headers: {
                             "Content-Type": "application/json",
@@ -329,7 +329,7 @@ export default function NewMemo() {
 
                             const postData = await fetch(`${BACKEND_URL}/new-memo`, {
                                 method: "POST",
-                                mode: "cors",
+                                // mode: "cors",
                                 signal: controller.signal,
                                 headers: {
                                     "Content-Type": "application/json",
@@ -345,13 +345,8 @@ export default function NewMemo() {
                                 
         
                                 if (data) {
-                                    setTimeout(() => {
-                                        setReadyPrintLoading(false)
-                                    
-        
-                                        setReadyPrint(true);
-        
-                                    }, 5000)
+                                    setReadyPrintLoading(false)
+                                    setReadyPrint(true);
                                     
                                 }
                             }
@@ -382,7 +377,7 @@ export default function NewMemo() {
                     }
                     const postData = await fetch(`${BACKEND_URL}/temporary_profile/`, {
                         method: 'POST',
-                        mode: "cors",
+                        // mode: "cors",
                         signal: controller.signal,
                         headers: {
                             "Content-Type": "application/json",
@@ -463,7 +458,7 @@ export default function NewMemo() {
         const postNewCard = await fetch(`${BACKEND_URL}/customer`, {
             method: 'POST',
             // signal: controller.signal,
-            mode: "cors",
+            // mode: "cors",
             headers: {
                 "Content-Type": "application/json",
             },

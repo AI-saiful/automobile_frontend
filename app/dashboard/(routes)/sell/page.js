@@ -24,8 +24,8 @@ export default function Sell() {
 
     const [searchValue, SetSearchValue] = useState('')
     const [recentlySellDetails, setRecentlySellDetails] = useState([])
-    const [fromDate, setFromtDate] = React.useState()
-    const [toDate, setToDate] = React.useState()
+    const [fromDate, setFromtDate] =useState()
+    const [toDate, setToDate] = useState()
     
     
 
