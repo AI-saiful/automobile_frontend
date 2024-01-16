@@ -455,7 +455,7 @@ export default function Sell() {
                         <TableBody>
                             {recentlySellDetails?.map((report, index) => (
                                 <TableRow key={index}>
-                                    {console.log(report)}
+                              
                                     <TableCell className="font-medium">{index+1}</TableCell>
                                     <TableCell>{report?.name}</TableCell>
                                     <TableCell>{report?.number}</TableCell>
