@@ -113,7 +113,7 @@ export default function CardValidityCheck() {
                     })
                 } else {
                     
-                    setError('Somethong wrong')
+                    setError('Something wrong')
                     setLoading(false)
                     
                 }

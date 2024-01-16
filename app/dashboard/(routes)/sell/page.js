@@ -49,11 +49,11 @@ export default function Sell() {
                             
                             const newSellHistory = {
                                 name : singleCustomer?.name,
-                                number: singleCustomer?.number,
+                                number: `${singleCustomer?.number} / ${singleCustomer?.card_number}`,
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
-                                coustomerStatus: singleCustomer.card_number
+                                coustomerStatus: <BadgeCheck className="text-green-500" />
 
 
 
@@ -444,7 +444,7 @@ export default function Sell() {
                             <TableRow>
                                 <TableHead className="w-[100px]">NO</TableHead>
                                 <TableHead>Name</TableHead>
-                                <TableHead>Phone Number</TableHead>
+                                <TableHead>Phone Number / Card Number</TableHead>
                                 <TableHead>Service Name</TableHead>
                                 <TableHead>Card Status</TableHead>
                                 <TableHead>Date</TableHead>
@@ -455,6 +455,7 @@ export default function Sell() {
                         <TableBody>
                             {recentlySellDetails?.map((report, index) => (
                                 <TableRow key={index}>
+                                    {console.log(report)}
                                     <TableCell className="font-medium">{index+1}</TableCell>
                                     <TableCell>{report?.name}</TableCell>
                                     <TableCell>{report?.number}</TableCell>
