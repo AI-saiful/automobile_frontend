@@ -440,7 +440,7 @@ export default function NewMemo() {
             service_type_id: customer.service_type_id,
         }
         if (customer.card_number === '' || customer.card_category_id === '' || customer.name === '' || customer.number === '') {
-            toast.error('Must be Added Card Number, Dueration name and phone number', {
+            toast.error('Must be Add Card Number, Duration, Name and Phone number', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,

@@ -208,7 +208,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
-                                coustomerStatus: <BadgeCheck className="text-green-500" />
+                                coustomerStatus: singleCustomer?.card_number
 
 
 
@@ -446,7 +446,7 @@ export default function Sell() {
                                 <TableHead>Name</TableHead>
                                 <TableHead>Phone Number</TableHead>
                                 <TableHead>Service Name</TableHead>
-                                <TableHead>Card Status</TableHead>
+                                <TableHead>Card Number</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Total</TableHead>
                                 {/* <TableHead>Print file</TableHead> */}
