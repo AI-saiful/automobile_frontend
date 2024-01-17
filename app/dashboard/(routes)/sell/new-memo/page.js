@@ -255,7 +255,7 @@ export default function NewMemo() {
 
         if (customer.name === '' || customer.address === '' || customer.number === '') {
             
-            toast.error('must be added the name addess and phone number', {
+            toast.error('Must be add Name, Addess and Phone number', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -398,7 +398,7 @@ export default function NewMemo() {
 
                                 setReadyPrint(true);
 
-                            }, 5000)
+                            }, 3000)
                             
                         }
 
