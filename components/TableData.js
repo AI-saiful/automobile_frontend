@@ -12,12 +12,12 @@ export default function TableData({
         
 
     return (
-            <TableRow key={index}>
-                <TableCell className="font-medium">{index+1}</TableCell>
-                <TableCell>{name}</TableCell>
-                <TableCell>{card_number}</TableCell>
-                <TableCell>{addrss}</TableCell>
-                <TableCell>{number}</TableCell>
-            </TableRow>
+        <TableRow key={index}>
+            <TableCell className="font-medium">{index+1}</TableCell>
+            <TableCell>{name}</TableCell>
+            <TableCell>{card_number}</TableCell>
+            <TableCell>{addrss}</TableCell>
+            <TableCell>{number}</TableCell>
+        </TableRow>
     )
 }

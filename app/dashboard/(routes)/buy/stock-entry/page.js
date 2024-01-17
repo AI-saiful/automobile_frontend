@@ -19,7 +19,6 @@ export default function StockEntry() {
         product_image: "",
     })
 
-    console.log(newStock);
 
 
 

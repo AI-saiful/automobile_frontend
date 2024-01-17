@@ -36,14 +36,12 @@ export  default function ServicesEntryMemo({servicesAll, setServicesAll, service
 
     const changeService = (ev, index) => {
         if (ev.target.value === 'Choose a service') return
-        // console.log(ev.target[ev.target.value].innerText);
         const list = [...servicesAll];
         list[index]['serviceName'] = ev.target[ev.target.value].innerText;
         list[index]['servicesID'] = ev.target.value;
         setServicesAll(list)
     }
 
-    console.log(servicesAll);
 
 
 

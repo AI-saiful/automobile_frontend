@@ -91,7 +91,6 @@ export default function NewMemo() {
         const m = newId.join("")
 
         // x = `MAUT-${m}${month}${new Date().getDate()}`
-        // console.log(x);
 
 
         const memoNumberFetchData = async () => {
