@@ -24,8 +24,8 @@ export default function Sell() {
 
     const [searchValue, SetSearchValue] = useState('')
     const [recentlySellDetails, setRecentlySellDetails] = useState([])
-    const [fromDate, setFromtDate] =useState()
-    const [toDate, setToDate] = useState()
+    const [fromDate, setFromtDate] = React.useState()
+    const [toDate, setToDate] = React.useState()
     
     
 
@@ -49,11 +49,11 @@ export default function Sell() {
                             
                             const newSellHistory = {
                                 name : singleCustomer?.name,
-                                number: `${singleCustomer?.number} / ${singleCustomer?.card_number}`,
+                                number: singleCustomer?.number,
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
-                                coustomerStatus: <BadgeCheck className="text-green-500" />
+                                coustomerStatus: singleCustomer.card_number
 
 
 
@@ -208,7 +208,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
-                                coustomerStatus: singleCustomer?.card_number
+                                coustomerStatus: <BadgeCheck className="text-green-500" />
 
 
 
@@ -444,7 +444,7 @@ export default function Sell() {
                             <TableRow>
                                 <TableHead className="w-[100px]">NO</TableHead>
                                 <TableHead>Name</TableHead>
-                                <TableHead>Phone Number / Card Number</TableHead>
+                                <TableHead>Phone Number</TableHead>
                                 <TableHead>Service Name</TableHead>
                                 <TableHead>Card Status</TableHead>
                                 <TableHead>Date</TableHead>
@@ -455,7 +455,6 @@ export default function Sell() {
                         <TableBody>
                             {recentlySellDetails?.map((report, index) => (
                                 <TableRow key={index}>
-                              
                                     <TableCell className="font-medium">{index+1}</TableCell>
                                     <TableCell>{report?.name}</TableCell>
                                     <TableCell>{report?.number}</TableCell>
