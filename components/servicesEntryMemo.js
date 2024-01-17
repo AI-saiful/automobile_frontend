@@ -35,11 +35,15 @@ export  default function ServicesEntryMemo({servicesAll, setServicesAll, service
     }
 
     const changeService = (ev, index) => {
+        if (ev.target.value === 'Choose a service') return
+        // console.log(ev.target[ev.target.value].innerText);
         const list = [...servicesAll];
-        list[index]['serviceName'] = ev.target.innerText;
+        list[index]['serviceName'] = ev.target[ev.target.value].innerText;
         list[index]['servicesID'] = ev.target.value;
         setServicesAll(list)
     }
+
+    console.log(servicesAll);
 
 
 
@@ -50,11 +54,11 @@ export  default function ServicesEntryMemo({servicesAll, setServicesAll, service
     return (
         <>
             <div className="relative w-full lg:max-w-sm">
-                <select name="servicesID" onChange={ev => (ev, index)} className="w-full p-2 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-gray-600">
+                <select name="servicesID" onChange={ev => changeService(ev, index)} className="w-full p-2 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-gray-600">
                         <option>Choose a service</option>
                    
-                        {serviceType?.map((s_type) => (
-                            <option key={index} onClick={(ev) => changeService(ev, index)} value={s_type?.id}>{s_type?.name}</option>
+                        {serviceType?.map((s_type, index) => (
+                            <option key={index} value={s_type?.id}>{s_type?.name}</option>
                         ))}
                 </select>
             </div>
