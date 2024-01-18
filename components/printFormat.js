@@ -145,6 +145,20 @@ export default function Printable_file({custome_details, service, currentDate, m
                             </tr>
                         </tfoot>
                     </table>
+
+
+
+                    <div className="mt-8">
+                        <p className="text-gray-500 flex flex-col justify-center font-sm leading-tight">
+                            <span className="text-gray-500 font-sm">.......................................</span>
+                            <span className="print:font-sm">Manager signature</span>
+                        </p>
+                    </div>
+
+
+
+
+
                     </div>
                     </div>
                     
@@ -152,7 +166,6 @@ export default function Printable_file({custome_details, service, currentDate, m
             </article>
             
             </div>
-            
             
 
             
