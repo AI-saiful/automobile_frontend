@@ -46,33 +46,57 @@ export default function Printable_file({custome_details, service, currentDate, m
                 </div>
                 <article className="overflow-hidden">
                 <div className="bg-[white] rounded-b-md">
-                    <div className="p-3 px-9 print:px-14 print:p-0">
-                    <div className="space-y-6 text-slate-700">
+                    <div className="px-9 print:px-14 print:p-0">
+                    <div className="space-y-1 text-slate-700">
 
-                    <p className="text-green-700 text-2xl print:text-2xl print:mt-3 font-extrabold tracking-tight uppercase font-body">
+                    <p className="text-green-700 text-2xl print:text-xl print:mt-0 font-semibold tracking-tight uppercase font-body">
                         Mangrove Automobile
                     </p>
-                    <p>Card Memo ID: {memo_number}</p>
+                    <p className="text-md text-gray-600 font-semibold">Card Memo ID: {memo_number}</p>
                     </div>
                     </div>
-                    <div className="print:mt-3 p-3 px-9 print:px-14 print:p-0">
+                    <div className="print:mt-0 px-9 print:px-14 print:p-0">
                     <div className="flex w-full">
                     <div className="grid grid-cols-4 gap-12">
                     <div className="text-sm font-light text-slate-500">
-                        <p className="w-full print:w-[400px] text-sm font-normal text-slate-700">
+                        <p className="w-full print:w-[400px] text-sm font-semibold text-slate-600">
                         Customer Detail:
                         </p>
-                        <p className="w-[500px]">Name: {custome_details.name}</p>
-                        <p className="w-[500px]">Phone: {custome_details.number}</p>
-                        <p className="w-[500px]">Address: {custome_details.address}</p>
-                        <p className="w-[500px]">Date: {`${currentDate.day}/${currentDate.months}/${currentDate.fullYear}`}</p>
+                        <table>
+                            <tr className="w-full">
+
+                                <td className="py-4 print:py-1 mr-5 pr-3 print:pr-5 text-sm sm:pl-6 md:pl-0">
+                                    <div className="text-slate-500 print:text-[7px]">
+                                        <p className="text-xs">Name {custome_details.name}</p>
+                                    </div>
+                                </td>
+                                <td className="py-4 print:py-1 mr-5 pr-3 print:pr-5 text-sm sm:pl-6 md:pl-0">
+                                    <div className="text-slate-500 print:text-[7px]">
+                                        <p className="text-xs">Phone {custome_details.number}</p>
+                                    </div>
+                                </td>
+                                <td className="py-4 print:py-1 mr-5 pr-3 print:pr-5 text-sm sm:pl-6 md:pl-0">
+                                    <div className="text-slate-500 print:text-[7px]">
+                                        <p className="text-xs">Address {custome_details.address}</p>
+                                    </div>
+                                </td>
+                                <td className="px-3 py-4 print:py-1 text-sm text-start text-slate-500 sm:table-cell print:text-[7px]">
+                                    <p className="text-xs">Date {`${currentDate.day}/${currentDate.months}/${currentDate.fullYear}`}</p>
+                                </td>
+
+                            </tr>
+                        </table>
+                        {/* <p className="w-[500px] text-xs">Name: {custome_details.name}</p>
+                        <p className="w-[500px] text-xs">Phone: {custome_details.number}</p>
+                        <p className="w-[500px] text-xs">Address: {custome_details.address}</p>
+                        <p className="w-[500px] text-xs">Date: {`${currentDate.day}/${currentDate.months}/${currentDate.fullYear}`}</p> */}
                     </div>
                     </div>
                     </div>
                     </div>
 
-                    <div className="p-3 px-9 print:px-0 print:p-0 print:ml-14">
-                    <div className="flex flex-col mx-0 mt-8 print:mt-8">
+                    <div className="px-9 print:px-0 print:p-0 print:ml-14">
+                    <div className="flex flex-col mx-0 mt-2 print:mt-2">
                     <table className="min-w-full print:w-full divide-y divide-slate-500">
                     <thead>
                         <tr>
@@ -147,25 +171,39 @@ export default function Printable_file({custome_details, service, currentDate, m
                     </table>
 
 
-
-                    <div className="mt-8">
+                            
+                    <div className="mt-3">
                         <p className="text-gray-500 flex flex-col justify-center font-sm leading-tight">
-                            <span className="text-gray-500 font-sm">.......................................</span>
-                            <span className="print:font-sm">Manager signature</span>
+                            <span className="text-gray-500 font-sm">...................................</span>
+                            <span className="print:text-sm">Manager signature</span>
                         </p>
                     </div>
 
-
-
-
-
                     </div>
                     </div>
+
+
                     
                 </div>
+
+
+
+
+
+
+                            
+
             </article>
+
+
+
             
             </div>
+            
+
+
+
+            
             
 
             
