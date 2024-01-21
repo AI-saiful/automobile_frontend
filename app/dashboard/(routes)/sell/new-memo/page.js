@@ -47,7 +47,7 @@ export default function NewMemo() {
 
 
 
-    
+
 
     const [customer, setCustomer] = useState({
         card_number: '',
@@ -58,6 +58,7 @@ export default function NewMemo() {
         address: '',
         vichal_no: '',
         vichal_model: '',
+        card_price: '',
     })
 
     const HTTP_TIMEOUT = 8000;
@@ -91,6 +92,7 @@ export default function NewMemo() {
         const m = newId.join("")
 
         // x = `MAUT-${m}${month}${new Date().getDate()}`
+        // console.log(x);
 
 
         const memoNumberFetchData = async () => {
@@ -201,6 +203,8 @@ export default function NewMemo() {
         if (res.status === 200) {
             const xData = data.cps.filter(item => item.card_number ===  ev.target.value)
 
+            let card_renew_info = null
+
             
             if (xData.length > 0) {
                 const cardCategoryRes = await fetch(`${BACKEND_URL}/card-category/`, {
@@ -219,11 +223,33 @@ export default function NewMemo() {
                     })
 
                     if (cardTypeRes.ok && res.status === 200) {
+          
                         const serviceData = await cardTypeRes.json()
+
+                        const renewCardData = await fetch(`${BACKEND_URL}/renew_card/`)
+
+                        if (renewCardData.ok) {
+                            const renewData = await renewCardData.json()
+        
+                        
+
+                            const originRenew = renewData?.card_renew?.filter(card_renew => card_renew?.cp_id === xData[0]?.id)
+
+                            if (originRenew?.length) {
+                                card_renew_info = originRenew
+                            } 
+                            
+                        }
+                        
+                        
+
+                        
+
+                        
                         setCardServiceType(serviceData?.s_type)
                         setCardCategoryList(data.ct)                 
                         setCustomer((prev) => {
-                            return {...prev, name: xData[0].name, number: xData[0].number, address: xData[0].addrss, vichal_no: xData[0].vichal_no, card_number: xData[0].card_number, vichal_model: xData[0].vichal_model}
+                            return {...prev, name: xData[0].name, number: xData[0].number, address: xData[0].addrss, vichal_no: xData[0].vichal_no, card_number: xData[0].card_number, card_price: card_renew_info ? card_renew_info[0].ammount + data?.ct[0].card_price : data?.ct[0].card_price,  vichal_model: xData[0].vichal_model}
                         })
                     }
                     
@@ -254,7 +280,7 @@ export default function NewMemo() {
 
         if (customer.name === '' || customer.address === '' || customer.number === '') {
             
-            toast.error('Must be add Name, Addess and Phone number', {
+            toast.error('must be added the name addess and phone number', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -284,7 +310,7 @@ export default function NewMemo() {
                 number: customer.number,
                 address: customer.card_category_id,
                 vichal_no: customer.vichal_no,
-        
+                description: customer?.description,        
                 vichal_model: customer.vichal_model,
             }
 
@@ -320,12 +346,6 @@ export default function NewMemo() {
                             // cheack card times
                             
 
-
-
-
-
-
-
                             const postData = await fetch(`${BACKEND_URL}/new-memo`, {
                                 method: "POST",
                                 // mode: "cors",
@@ -344,8 +364,13 @@ export default function NewMemo() {
                                 
         
                                 if (data) {
-                                    setReadyPrintLoading(false)
-                                    setReadyPrint(true);
+                                    setTimeout(() => {
+                                        setReadyPrintLoading(false)
+                                    
+        
+                                        setReadyPrint(true);
+        
+                                    }, 5000)
                                     
                                 }
                             }
@@ -397,7 +422,7 @@ export default function NewMemo() {
 
                                 setReadyPrint(true);
 
-                            }, 3000)
+                            }, 5000)
                             
                         }
 
@@ -439,7 +464,7 @@ export default function NewMemo() {
             service_type_id: customer.service_type_id,
         }
         if (customer.card_number === '' || customer.card_category_id === '' || customer.name === '' || customer.number === '') {
-            toast.error('Must be Add Card Number, Duration, Name and Phone number', {
+            toast.error('Must be Added Card Number, Dueration name and phone number', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -511,6 +536,10 @@ export default function NewMemo() {
                     <div className="">
                         <label>Card Number</label>
                         <Input value={customer.card_number} onChange={inputCardHandler}/>
+                    </div>
+                    <div className="">
+                        <label>Card Price</label>
+                        <Input disabled value={customer.card_price} onChange={ev => setCustomer({...customer, address: ev.target.value})}/>
                     </div>
                     <div className="flex flex-col">
                         <label>Date</label>

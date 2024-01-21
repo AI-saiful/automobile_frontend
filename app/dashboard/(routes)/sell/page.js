@@ -4,7 +4,7 @@ import {Table, TableBody, TableCell, TableHead, TableHeader, TableRow} from "@/c
 import React, {useEffect, useState} from "react";
 import Link from "next/link";
 import {Input} from "@/components/ui/input";
-import {Search, Printer, XCircle, BadgeCheck, PrinterIcon} from "lucide-react";
+import {Search, Printer, XCircle, BadgeCheck, PrinterIcon, Eye} from "lucide-react";
 import { Calendar as CalendarIcon } from "lucide-react"
 import Loading from "@/components/Loading";
 import { BACKEND_URL } from "@/Backend_Configure";
@@ -16,6 +16,16 @@ import {
 import { format } from "date-fns"
 import { cn } from "@/lib/utils"
 import { Calendar } from "@/components/ui/calendar"
+import {
+    Dialog,
+    DialogContent,
+    DialogDescription,
+    DialogFooter,
+    DialogHeader,
+    DialogTitle,
+    DialogTrigger,
+  } from "@/components/ui/dialog"
+
 
 
 
@@ -38,7 +48,7 @@ export default function Sell() {
             const res = await fetch(`${BACKEND_URL}/sell-history/`)
             if (res.ok) {
                 const data = await res.json();
-                
+        
                 setLoading(false)
 
                 data?.coustomer?.map(singleCustomer => {
@@ -53,7 +63,9 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
-                                coustomerStatus: singleCustomer.card_number
+                                description: singleService?.description,
+                                coustomerStatus: singleCustomer.card_number,
+                                memo_number: singleService?.memo_number
 
 
 
@@ -75,7 +87,9 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
-                                coustomerStatus: <XCircle className="text-red-500"/>
+                                description: singleService?.description,
+                                coustomerStatus: <XCircle className="text-red-500"/>,
+                                memo_number: singleService?.memo_number
 
                             }
 
@@ -144,6 +158,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
+                                description: singleService?.description,
                                 coustomerStatus: singleCustomer?.card_number
 
 
@@ -166,6 +181,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
+                                description: singleService?.description,
                                 coustomerStatus: <XCircle className="text-red-500"/>
 
                             }
@@ -183,6 +199,8 @@ export default function Sell() {
             
         }
     }
+
+    // console.log(recentlySellDetails);
 
     const getToDate = async (ev) => {
         if (fromDate && ev) {
@@ -208,6 +226,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
+                                description: singleService?.description,
                                 coustomerStatus: singleCustomer?.card_number
 
 
@@ -230,6 +249,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
+                                description: singleService?.description,
                                 coustomerStatus: <XCircle className="text-red-500"/>
 
                             }
@@ -277,6 +297,7 @@ export default function Sell() {
                                 service: x[0].name,
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
+                                description: singleService?.description,
                                 coustomerStatus: singleCustomer?.card_number
 
 
@@ -304,6 +325,8 @@ export default function Sell() {
                 const res = await fetch(`${BACKEND_URL}/sell-history/`)
                 if (res.ok) {
                     const data = await res.json();
+
+
                     
                     setLoading(false)
     
@@ -319,6 +342,7 @@ export default function Sell() {
                                     service: x[0].name,
                                     date: singleService.date.split("T")[0],
                                     total: singleService.total,
+                                    description: singleService?.description,
                                     coustomerStatus: singleCustomer?.card_number
     
     
@@ -341,6 +365,7 @@ export default function Sell() {
                                     service: x[0].name,
                                     date: singleService.date.split("T")[0],
                                     total: singleService.total,
+                                    description: singleService?.description,
                                     coustomerStatus: <XCircle className="text-red-500"/>
     
                                 }
@@ -364,7 +389,6 @@ export default function Sell() {
 
 
 
-    
 
 
 
@@ -446,9 +470,10 @@ export default function Sell() {
                                 <TableHead>Name</TableHead>
                                 <TableHead>Phone Number</TableHead>
                                 <TableHead>Service Name</TableHead>
-                                <TableHead>Card Number</TableHead>
+                                <TableHead>Card Status</TableHead>
                                 <TableHead>Date</TableHead>
                                 <TableHead>Total</TableHead>
+                                <TableHead>Action</TableHead>
                                 {/* <TableHead>Print file</TableHead> */}
                             </TableRow>
                         </TableHeader>
@@ -462,9 +487,38 @@ export default function Sell() {
                                     <TableCell>{report?.coustomerStatus}</TableCell>
                                     <TableCell>{report?.date.split('T')[0]}</TableCell>
                                     <TableCell>{report?.total}</TableCell>
-                                    {/* <TableCell>
-                                        <Button>{<PrinterIcon className="mr-2"  size={18}/>} Go to Print</Button>
-                                    </TableCell> */}
+                                    <TableCell>
+                                        <Dialog>
+                                            <DialogTrigger asChild>
+                                                <Eye className="text-gray-600 hover:text-gray-900 cursor-pointer" />
+                                            </DialogTrigger>
+                                            <DialogContent className="sm:max-w-[425px]">
+                                                <DialogHeader>
+                                                <DialogTitle>Sell history</DialogTitle>
+                                                <DialogDescription>
+                                                    See the full customer details
+                                                </DialogDescription>
+                                                </DialogHeader>
+                                                    <div className="grid gap-4 py-4">
+                                                        <div className="items-center">
+                                                            <h3 className="font-semibold">Name : {report?.name}</h3>
+                                                            {/* <p>Card Number: {report?.coustomerStatus}</p> */}
+                                                            <p>Phone Number: {report?.number}</p>
+                                                            <p>Memo Number: {report?.memo_number}</p>
+                                                            <p>Card Number: {report?.coustomerStatus} </p>
+                                                            <p>Total: {report?.total} </p>
+                                                            {/* <p>Vichel No: {customer.vichal_no}</p>
+                                                            <p>Vichel Model: {customer.vichal_model}</p> */}
+                                                            <p>Date: {report?.date.split('T')[0]}</p>
+                                                            <p>Description: {report?.description}</p>
+                         
+                                                        </div>
+                                                    </div>
+                                                <DialogFooter>
+                                                </DialogFooter>
+                                            </DialogContent>
+                                        </Dialog>
+                                    </TableCell>
                                 </TableRow>
                             ))}
 

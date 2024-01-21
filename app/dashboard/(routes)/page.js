@@ -47,23 +47,66 @@ const Home = () => {
                 const data = await totalSell.json()
                 setTotalSell(data)
             }
-            const totalEarning = await fetch(`${BACKEND_URL}/totalServices/`)
-            if (totalEarning.ok){
-                const data = await totalEarning.json()
 
-                let totalearningValue = 0;
 
-                if (data.service?.length > 0) {
-                    data?.service?.map(service => {
-                        totalearningValue += service?.total;
+            
+        
+            const cardCategoryRes = await fetch(`${BACKEND_URL}/card-category/`)
+
+            if (cardCategoryRes.ok) {
+                const cardData = await cardCategoryRes.json()
+        
+
+                let totalSellPrice = 0;
+                let totalRenewPrice = 0;
+                let totalCardPrice = 0;
+
+
+                const renewCardData = await fetch(`${BACKEND_URL}/renew_card/`)
+
+                if (renewCardData.ok) {
+                    const renewData = await renewCardData.json()
+
+
+                    const totalEarning = await fetch(`${BACKEND_URL}/totalServices/`)
+                    if (totalEarning.ok){
+                        const data = await totalEarning.json()            
+        
+                        if (data.service?.length > 0) {
+                            data?.service?.map(service => {
+                                totalSellPrice += service?.price
+                                
+                            })
+                        }
+
+
+                        if (renewData?.card_renew?.length > 0) {
+                            renewData?.card_renew?.map(renew => {
+                                totalCardPrice += renew?.ammount
+                            })
+                        }
+
+                        if (cardData?.ct?.length > 0){
+                            cardData?.ct?.map(card => {
+                                totalRenewPrice += card?.card_price
+    
+                            })
+                        }
+        
+                        setTotalEarnings(totalSellPrice + totalCardPrice + totalRenewPrice)
                         
-                    })
-                }
+                        
+                    }
 
-                setTotalEarnings(totalearningValue)
+                    
+                }
+                    
                 
-                
-            }
+            }  
+
+            
+
+
 
             
         }
