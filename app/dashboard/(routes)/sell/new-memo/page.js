@@ -14,8 +14,8 @@ import { BACKEND_URL } from "@/Backend_Configure";
 // import { uuid } from "uuidv4";
 
 const initialState = {
-    serviceName: "wash",
-    servicesID: "1",
+    serviceName: "",
+    servicesID: "",
     product_code: "",
     description: "",
     price: '',
@@ -51,8 +51,8 @@ export default function NewMemo() {
 
     const [customer, setCustomer] = useState({
         card_number: '',
-        card_category_id: '1',
-        service_type_id: '1',
+        card_category_id: '',
+        service_type_id: '',
         name: '',
         number: '',
         address: '',
@@ -358,6 +358,8 @@ export default function NewMemo() {
                             
                             if (postData.ok) {
                                 const data = await postData.json();
+
+                                if (!data?.success) return toast.error('something wrong')
                                 
                                 setLoading(false)
                                 setReadyPrintLoading(true)
@@ -369,7 +371,7 @@ export default function NewMemo() {
                                     
         
                                         setReadyPrint(true);
-        
+
                                     }, 5000)
                                     
                                 }
@@ -411,6 +413,7 @@ export default function NewMemo() {
     
                     if (postData.ok) {
                         const data = await postData.json();
+                        if (!data?.success) return toast.error('something wrong')
 
                         setLoading(false)
                         setReadyPrintLoading(true)
@@ -421,6 +424,7 @@ export default function NewMemo() {
                             
 
                                 setReadyPrint(true);
+
 
                             }, 5000)
                             
@@ -445,6 +449,7 @@ export default function NewMemo() {
 
 
     const addCustomerWithCard = async () => {
+        console.log(customer);
 
         // const decode_token = jwtDecode(cookie.get('token'))
 
@@ -463,8 +468,8 @@ export default function NewMemo() {
             card_category_id: customer.card_category_id,
             service_type_id: customer.service_type_id,
         }
-        if (customer.card_number === '' || customer.card_category_id === '' || customer.name === '' || customer.number === '') {
-            toast.error('Must be Added Card Number, Dueration name and phone number', {
+        if (customer.card_number === '' || customer.card_category_id === '' || customer.name === '' || customer.number === '' || customer.card_category_id === '' || customer.service_type_id === '' || customer.address === '' || customer.vichal_no === '' || customer.vichal_model === '') {
+            toast.error('Please fill up all', {
                 position: "top-center",
                 autoClose: 5000,
                 hideProgressBar: false,
@@ -495,6 +500,7 @@ export default function NewMemo() {
             setLoading(false);
             const data = await postNewCard.json();
             setCustomer({...customer, address: "", name: "", card_number: "", number: "", vichal_no:"", vichal_model: ""})
+
             return toast.info(data, {
                 position: "top-center",
                 autoClose: 5000,
@@ -547,11 +553,11 @@ export default function NewMemo() {
                     </div>
                     <div className="flex flex-col">
                         <label>Vehicle No</label>
-                        <Input value={customer.vichal_no} onChange={ev => setCustomer({...customer, vichal_no: ev.target.value})} />
+                        <Input value={customer.vichal_no} onChange={ev => setCustomer({...customer, vichal_no: ev.target.value})} required/>
                     </div>
                     <div className="flex flex-col">
                         <label>Address</label>
-                        <Input value={customer.address} onChange={ev => setCustomer({...customer, address: ev.target.value})} />
+                        <Input value={customer.address} onChange={ev => setCustomer({...customer, address: ev.target.value})} required/>
                     </div>
                     <div className="flex flex-col">
                         <label>Card category</label>
@@ -564,8 +570,8 @@ export default function NewMemo() {
                     </div>
 
                     <div className="flex flex-col">
-                        <label>Card Service Type</label>
-                        <select onChange={ev => setCustomer({...customer, service_type_id: ev.target.value})} className="w-full p-2 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-gray-600">
+                        <label htmlFor="Service-Type">Card Service Type</label>
+                        <select id="Service-Type" onChange={ev => setCustomer({...customer, service_type_id: ev.target.value})} className="w-full p-2 text-gray-500 bg-white border rounded-md shadow-sm outline-none appearance-none focus:border-gray-600" required>
                             {cardServiceType.length > 1 && <option>Choose a Service</option>}
                             {cardServiceType?.map((st_type, index) => (
                                 <option key={index} value={st_type?.id}>{st_type?.name}</option>
