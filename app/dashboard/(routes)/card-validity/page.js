@@ -37,6 +37,7 @@ export default function CardValidityCheck() {
 
             if (res.ok) {
                 const data = await res.json();
+                console.log(data);
 
                 const cardValidate = await fetch(`${BACKEND_URL}/card-validate-check/`, {
                     method: "POST",
@@ -44,27 +45,31 @@ export default function CardValidityCheck() {
                     headers: {
                         "Content-Type": "application/json",
                     },
-                    body: JSON.stringify({card_number: data?.customer[0]?.card_number})
+                    body: JSON.stringify({card_number: data?.customer[data?.customer?.length-1]?.card_number})
                 });
 
                 if (cardValidate.ok && cardValidate.status === 200) {
                     const cardData = await cardValidate.json()
 
                     setLoading(false)
-                    data?.customer?.map(singleCustomer => {
-                        data?.service?.map(singleService => {
+                    const lastCustomer = data?.customer[data?.customer?.length-1]
+                    const lastService = data?.service[data?.service?.length-1]
+                  
+                    // data?.customer?.map(singleCustomer => {
+                        // data?.service?.map(singleService => {
 
-                            if (singleCustomer.id !== singleService.cp_id) {
+                            if (lastCustomer.id !== lastService.cp_id) {
+                                
                                 const newSellHistory = {
-                                    name : singleCustomer?.name,
-                                    number: singleCustomer?.number,
-                                    service: singleCustomer?.name,
-                                    address: singleCustomer?.addrss,
-                                    date: singleService.date.split("T")[0],
+                                    name : lastCustomer?.name,
+                                    number: lastCustomer?.number,
+                                    service: lastCustomer?.name,
+                                    address: lastCustomer?.addrss,
+                                    date: lastService.date.split("T")[0],
                                     total: 0,
-                                    card_number: singleCustomer?.card_number,
-                                    vichal_no: singleCustomer?.vichal_no,
-                                    vichal_model: singleCustomer?.vichal_model,
+                                    card_number: lastCustomer?.card_number,
+                                    vichal_no: lastCustomer?.vichal_no,
+                                    vichal_model: lastCustomer?.vichal_model,
                                     exp_date: cardData?.exp_date,
                                     left_time: cardData?.left_time,
                                     total_time: cardData?.total_time,
@@ -80,24 +85,24 @@ export default function CardValidityCheck() {
                             
                             
                         
-                            if (singleCustomer.id === singleService.cp_id) {
-                                const x = data?.st?.filter(serviceType => serviceType.id === singleService.service_type_id)
-
+                            if (lastCustomer.id === lastService.cp_id) {
+                                const x = data?.st?.filter(serviceType => serviceType.id === lastService.service_type_id)
+                                
 
 
                            
                                 
                                 
                                 const newSellHistory = {
-                                    name : singleCustomer?.name,
-                                    number: singleCustomer?.number,
+                                    name : lastCustomer?.name,
+                                    number: lastCustomer?.number,
                                     service: x[0].name,
-                                    address: singleCustomer?.addrss,
-                                    date: singleService.date.split("T")[0],
-                                    total: singleService?.total,
-                                    card_number: singleCustomer?.card_number,
-                                    vichal_no: singleCustomer?.vichal_no,
-                                    vichal_model: singleCustomer?.vichal_model,
+                                    address: lastCustomer?.addrss,
+                                    date: lastService.date.split("T")[0],
+                                    total: lastService?.total,
+                                    card_number: lastCustomer?.card_number,
+                                    vichal_no: lastCustomer?.vichal_no,
+                                    vichal_model: lastCustomer?.vichal_model,
                                     exp_date: cardData?.exp_date,
                                     left_time: cardData?.left_time,
                                     total_time: cardData?.total_time,
@@ -109,8 +114,8 @@ export default function CardValidityCheck() {
     
                                 sellHistory.push(newSellHistory)
                             }
-                        })
-                    })
+                        // })
+                    // })
                 } else {
                     
                     setError('Something wrong')
@@ -147,9 +152,15 @@ export default function CardValidityCheck() {
     return (
         <div className="px-3 py-3">
 
-            <Link href='/dashboard/card-validity/card-renew'>
-                    <Button>Card Renew</Button>
-            </Link>
+            <div className="flex flex-row gap-3">
+                <Link href='/dashboard/card-validity/card-renew'>
+                        <Button>Card Renew</Button>
+                </Link>
+
+                <Link href='/dashboard/card-validity/card-close'>
+                        <Button>Card Close</Button>
+                </Link>
+            </div>
 
 
             <Input className="my-5" onChange={ev => SetSearchValue(ev.target.value)} placeholder={'Enter the card Number or Phone Number'} />

@@ -27,7 +27,7 @@ export default function CardValidity ({customerData}) {
                 <h1 className="text-2xl text-gray-900">Services</h1>
 
                 <div className="border border-gray-500 p-5">
-                    <h1 className="text-xl flex flex-row gap-2 items-center">{<Globe2 />} Tatal Service: {customerData[0]?.total_time} </h1>
+                    <h1 className="text-xl flex flex-row gap-2 items-center">{<Globe2 />} Total Service: {customerData[0]?.total_time} </h1>
                     <h1 className="text-xl flex flex-row gap-2 items-center">{<HeartHandshake />} Get Service: {customerData[0]?.get_service}</h1>
                     <h1 className={`text-xl flex flex-row gap-2 items-center ${customerData[0]?.left_time <= 0 && 'text-red-600'}`}>{<Timer />} Service left: {customerData[0]?.left_time}</h1>
                     

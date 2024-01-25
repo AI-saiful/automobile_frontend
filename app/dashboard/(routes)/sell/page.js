@@ -159,7 +159,8 @@ export default function Sell() {
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
                                 description: singleService?.description,
-                                coustomerStatus: singleCustomer?.card_number
+                                coustomerStatus: singleCustomer?.card_number,
+                                memo_number: singleService?.memo_number
 
 
 
@@ -182,7 +183,8 @@ export default function Sell() {
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
                                 description: singleService?.description,
-                                coustomerStatus: <XCircle className="text-red-500"/>
+                                coustomerStatus: <XCircle className="text-red-500"/>,
+                                memo_number: singleService?.memo_number
 
                             }
 
@@ -227,7 +229,8 @@ export default function Sell() {
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
                                 description: singleService?.description,
-                                coustomerStatus: singleCustomer?.card_number
+                                coustomerStatus: singleCustomer?.card_number,
+                                memo_number: singleService?.memo_number
 
 
 
@@ -250,7 +253,8 @@ export default function Sell() {
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
                                 description: singleService?.description,
-                                coustomerStatus: <XCircle className="text-red-500"/>
+                                coustomerStatus: <XCircle className="text-red-500"/>,
+                                memo_number: singleService?.memo_number
 
                             }
 
@@ -298,7 +302,8 @@ export default function Sell() {
                                 date: singleService.date.split("T")[0],
                                 total: singleService.total,
                                 description: singleService?.description,
-                                coustomerStatus: singleCustomer?.card_number
+                                coustomerStatus: singleCustomer?.card_number,
+                                memo_number: singleService?.memo_number
 
 
 
@@ -343,7 +348,8 @@ export default function Sell() {
                                     date: singleService.date.split("T")[0],
                                     total: singleService.total,
                                     description: singleService?.description,
-                                    coustomerStatus: singleCustomer?.card_number
+                                    coustomerStatus: singleCustomer?.card_number,
+                                    memo_number: singleService?.memo_number
     
     
     
@@ -366,7 +372,8 @@ export default function Sell() {
                                     date: singleService.date.split("T")[0],
                                     total: singleService.total,
                                     description: singleService?.description,
-                                    coustomerStatus: <XCircle className="text-red-500"/>
+                                    coustomerStatus: <XCircle className="text-red-500"/>,
+                                    memo_number: singleService?.memo_number
     
                                 }
     

@@ -64,6 +64,9 @@ export default function NewMemo() {
     const HTTP_TIMEOUT = 8000;
     const controller = new AbortController();
     const timeoutId = setTimeout(() => controller.abort(), HTTP_TIMEOUT);
+
+
+    console.log(customer);
     
 
 
@@ -144,9 +147,9 @@ export default function NewMemo() {
         // if (res.status === 200) {
         //     const xData = data.cps.filter(item => item.number ===  ev.target.value)
         //     if (xData.length > 0) {    
-        //         setCardCategoryList(xData[0]?.card_category)            
+        //         setCardCategoryList(xData[xData.length - 1]?.card_category)            
         //         setCustomer((prev) => {
-        //             return {...prev, name: xData[0].name, number: xData[0].number, address: xData[0].addrss, vichal_no: xData[0].vichal_no, card_number: xData[0].card_number, vichal_model: xData[0].vichal_model}
+        //             return {...prev, name: xData[xData.length - 1].name, number: xData[xData.length - 1].number, address: xData[xData.length - 1].addrss, vichal_no: xData[xData.length - 1].vichal_no, card_number: xData[xData.length - 1].card_number, vichal_model: xData[xData.length - 1].vichal_model}
         //         })
         //     } 
         // }
@@ -159,7 +162,7 @@ export default function NewMemo() {
                 const cardCategoryRes = await fetch(`${BACKEND_URL}/card-category/`, {
                     method: "POST",
                     // mode: "cors",
-                    body: JSON.stringify({card_category_id: xData[0].card_category_id})
+                    body: JSON.stringify({card_category_id: xData[xData.length - 1].card_category_id})
                 })
     
                 if (cardCategoryRes.ok) {
@@ -168,15 +171,15 @@ export default function NewMemo() {
                     const cardTypeRes = await fetch(`${BACKEND_URL}/get_service_type/`, {
                         method: "POST",
                         // mode: "cors",
-                        body: JSON.stringify({service_type_id: xData[0].service_type_id})
+                        body: JSON.stringify({service_type_id: xData[xData.length - 1].service_type_id})
                     })
 
                     if (cardTypeRes.ok && res.status === 200) {
                         const serviceData = await cardTypeRes.json()
-                        setCardServiceType(serviceData?.s_type)
-                        setCardCategoryList(data.ct)                 
+                        // setCardServiceType(serviceData?.s_type)
+                        // setCardCategoryList(data.ct)                 
                         setCustomer((prev) => {
-                            return {...prev, name: xData[0].name, number: xData[0].number, address: xData[0].addrss, vichal_no: xData[0].vichal_no, card_number: xData[0].card_number, vichal_model: xData[0].vichal_model}
+                            return {...prev, name: xData[xData.length - 1].name, number: xData[xData.length - 1].number, address: xData[xData.length - 1].addrss, vichal_no: xData[xData.length - 1].vichal_no, card_number: xData[xData.length - 1].card_number, vichal_model: xData[xData.length - 1].vichal_model}
                         })
                     }
                     
@@ -202,6 +205,7 @@ export default function NewMemo() {
         
         if (res.status === 200) {
             const xData = data.cps.filter(item => item.card_number ===  ev.target.value)
+            
 
             let card_renew_info = null
 
@@ -210,7 +214,7 @@ export default function NewMemo() {
                 const cardCategoryRes = await fetch(`${BACKEND_URL}/card-category/`, {
                     method: "POST",
                     // mode: "cors",
-                    body: JSON.stringify({card_category_id: xData[0].card_category_id})
+                    body: JSON.stringify({card_category_id: xData[xData.length - 1].card_category_id})
                 })
     
                 if (cardCategoryRes.ok) {
@@ -219,7 +223,7 @@ export default function NewMemo() {
                     const cardTypeRes = await fetch(`${BACKEND_URL}/get_service_type/`, {
                         method: "POST",
                         // mode: "cors",
-                        body: JSON.stringify({service_type_id: xData[0].service_type_id})
+                        body: JSON.stringify({service_type_id: xData[xData.length - 1].service_type_id})
                     })
 
                     if (cardTypeRes.ok && res.status === 200) {
@@ -233,7 +237,7 @@ export default function NewMemo() {
         
                         
 
-                            const originRenew = renewData?.card_renew?.filter(card_renew => card_renew?.cp_id === xData[0]?.id)
+                            const originRenew = renewData?.card_renew?.filter(card_renew => card_renew?.cp_id === xData[xData.length - 1]?.id)
 
                             if (originRenew?.length) {
                                 card_renew_info = originRenew
@@ -246,10 +250,12 @@ export default function NewMemo() {
                         
 
                         
-                        setCardServiceType(serviceData?.s_type)
-                        setCardCategoryList(data.ct)                 
+                        // setCardServiceType(serviceData?.s_type)
+
+                        // setCardCategoryList(data.ct)  
+
                         setCustomer((prev) => {
-                            return {...prev, name: xData[0].name, number: xData[0].number, address: xData[0].addrss, vichal_no: xData[0].vichal_no, card_number: xData[0].card_number, card_price: card_renew_info ? card_renew_info[0].ammount + data?.ct[0].card_price : data?.ct[0].card_price,  vichal_model: xData[0].vichal_model}
+                            return {...prev, name: xData[xData.length - 1].name, number: xData[xData.length - 1].number, address: xData[xData.length - 1].addrss, vichal_no: xData[xData.length - 1].vichal_no, card_number: xData[xData.length - 1].card_number, card_price: card_renew_info ? card_renew_info[0].ammount + data?.ct[0].card_price : data?.ct[0].card_price,  vichal_model: xData[xData.length - 1].vichal_model}
                         })
                     }
                     
@@ -332,7 +338,7 @@ export default function NewMemo() {
                         headers: {
                             "Content-Type": "application/json",
                         },
-                        body: JSON.stringify({card_number: xData[0].card_number})
+                        body: JSON.stringify({card_number: xData[xData.length - 1].card_number})
                     });
 
 
@@ -449,7 +455,6 @@ export default function NewMemo() {
 
 
     const addCustomerWithCard = async () => {
-        console.log(customer);
 
         // const decode_token = jwtDecode(cookie.get('token'))
 
