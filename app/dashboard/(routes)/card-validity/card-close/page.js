@@ -9,7 +9,7 @@ import { BACKEND_URL } from "@/Backend_Configure";
 
 
 export default function CardClose () {
-    const [cardDetails, setShowCardDetails] = useState([])
+    const [cardDetails, setShowCardDetails] = useState(null)
     const [searchInputValue, setSearchInputValue] = useState('')
 
 
@@ -32,7 +32,9 @@ export default function CardClose () {
                 const customerDetailsWithCard = await resCustomerDataWithCard.json();
 
                 if (customerDetailsWithCard) {
-                    setShowCardDetails(customerDetailsWithCard?.customer)
+                    const card_customer = customerDetailsWithCard?.customer[customerDetailsWithCard?.customer?.length-1]?.card_number && customerDetailsWithCard?.customer[customerDetailsWithCard?.customer?.length-1]
+                    setShowCardDetails(card_customer)
+                    
                     
                 }
 
@@ -85,11 +87,11 @@ export default function CardClose () {
         <h1 className="text-2xl text-gray-800">Card Close Entry</h1>
 
 
-            <div className={`grid ${cardDetails?.length > 0 && 'md:grid-cols-2 transition-all ease-in-out duration-100'} gap-3 mt-5`}>
+            <div className={`grid ${cardDetails && 'md:grid-cols-2 transition-all ease-in-out duration-100'} gap-3 mt-5`}>
                 <form onSubmit={closeSubmitHandler}>
                     <div className="rounded-md py-5 flex flex-col gap-3 border border-gray-500/20 p-5 shadow-md">
                         <Input placeholder={"Enter the Card Number or Phone Number"} value={searchInputValue} onChange={(ev) => inputSearcHandler(ev)} />
-                        {cardDetails?.length > 0 && <Button type="submit" className="mt-2">Save</Button>}
+                        {cardDetails && <Button type="submit" className="mt-2">close card</Button>}
                         
                     </div>
 
@@ -97,20 +99,21 @@ export default function CardClose () {
                 </form>
 
                
-               {cardDetails?.length > 0 && (
-                    <div className="border border-gray-500/20 grid p-5 shadow-md rounded-md transition-all ease-in-out duration-100">
-                        {cardDetails.length < 0 ? (<h1 className="flex flex-row gap-1 items-center">Card Status: <span className="text-red-600">Not Available</span></h1>) : (<h1 className="flex flex-row gap-1 items-center">Card Status: <span className="text-green-500 font-bold shadow-md p-2 rounded-lg bg-gray-400/20">Available</span></h1>)}
-                        {cardDetails?.map((customer, index) => (
-                            <>
-                                <h1>Name : {customer?.name}</h1>
-                                <h1>Phone : {customer?.number} </h1>
-                                <h1>Address : {customer?.addrss} </h1>
-                                <h1>Card Number : <span className="font-bold text-gray-600">{customer?.card_number}</span></h1>
-                            </>
-                        ))}
-                    </div>
-                                  
-               )}
+                {cardDetails && (
+                        <div className="border border-gray-500/20 grid p-5 shadow-md rounded-md transition-all ease-in-out duration-100">
+                            {!cardDetails ? (<h1 className="flex flex-row gap-1 items-center">Card Status: <span className="text-red-600">Not Available</span></h1>) : (<h1 className="flex flex-row gap-1 items-center">Card Status: <span className="text-green-500 font-bold shadow-md p-2 rounded-lg bg-gray-400/20">Available</span></h1>)}
+                            {/* {cardDetails?.map((customer, index) => ( */}
+                            
+                                <>
+                                    <h1>Name : {cardDetails?.name}</h1>
+                                    <h1>Phone : {cardDetails?.number} </h1>
+                                    <h1>Address : {cardDetails?.addrss} </h1>
+                                    <h1>Card Number : <span className="font-bold text-gray-600">{cardDetails?.card_number}</span></h1>
+                                </>
+                            {/* ))} */}
+                        </div>
+                                      
+                   )}
             </div>
 
         

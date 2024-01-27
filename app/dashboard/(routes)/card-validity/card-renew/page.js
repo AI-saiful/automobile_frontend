@@ -39,7 +39,8 @@ export default function CardRenew () {
                 const customerDetailsWithCard = await resCustomerDataWithCard.json();
 
                 if (customerDetailsWithCard) {
-                    setShowCardDetails(customerDetailsWithCard?.customer[customerDetailsWithCard?.customer?.length-1])
+                    const card_customer = customerDetailsWithCard?.customer[customerDetailsWithCard?.customer?.length-1]?.card_number && customerDetailsWithCard?.customer[customerDetailsWithCard?.customer?.length-1]
+                    setShowCardDetails(card_customer)
                     
                     
                 }
@@ -55,6 +56,7 @@ export default function CardRenew () {
         }
 
     }
+
 
 
     const renewSubmitHandler = async (ev) => {
